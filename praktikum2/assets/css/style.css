@@ -54,8 +54,8 @@ main {
 section {
     background-color: #fff;
     border-radius: 8px;
-    padding: i.5rem;
-    margin-bottom: 1,5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
@@ -65,7 +65,7 @@ section h2 {
 }
 main section:nth-of-type(2) {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 }
 main section:nth-of-type(2) article {
@@ -90,6 +90,14 @@ main section:nth-of-type(2) article p {
 table {
     width: 100%;
     border-collapse: collapse;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+pre {
+    overflow-x: auto;
 }
 
 th, td {
@@ -152,7 +160,7 @@ form select {
     font-size: 1rem;
 }
 
-form button [type="submit"] {
+form button[type="submit"] {
     background-color: #673ab7;
     color: #fff;
     border: none;
@@ -171,4 +179,62 @@ footer {
     padding: 1.25rem;
     color: #7a8794;
     font-size: 0.9rem;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    display: none;
+    font-size: 1.6rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+@media (min-width: 769px) {
+    main section:nth-of-type(2) {
+            grid-template-columns: 1fr;
+        }
+}
+
+@media (max-width: 480px) {
+    header {
+        position: relative;
+    }
+
+    .nav-toggle-label {
+        display: block;
+    }
+
+    header nav {
+        display: none;
+        width: 100%;
+        order: 3;
+        margin-top: 1rem;
+    }
+    .nav-toggle:checked~nav {
+        display: block;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    main section:nth-of-type(2) {
+        grid-template-columns: 1fr;
+    }
+
+    form input,
+    form select {
+        max-width: 100%;
+    }
+        /* penambahan breakpoint baru */
+    @media (min-width: 1400px) {
+        main {
+            max-width: 1200px;
+                /* Memperlebar batas maksimal dari 1000px menjadi 1200px */
+        }
+    }
 }

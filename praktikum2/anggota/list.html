@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <title>SIMPULS-Mini | Daftar Anggota</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
     <header>
         <h1>SIMPULS-Mini</h1>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        <label for="nav-toggle" class="nav-toggle-label">&#9776;</label>
         <nav>
             <ul>
                 <li><a href="../index.html">Beranda</a></li>
@@ -23,6 +26,7 @@
     <main>
         <section>
             <h2>Daftar Anggota</h2>
+        <div class="table-responsive">
             <table border="1">
                 <thead>
                     <tr>
@@ -65,8 +69,9 @@
                     </tr>
                 </tbody>
             </table>
-        </section>
-    </main>
+        </div>
+    </section>
+</main>
     <footer>
         <p>&copy; 2026 SIMPULS-Mini &mdash; Jobheet 1</p>
     </footer>

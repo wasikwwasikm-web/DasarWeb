@@ -1,0 +1,24 @@
+/* PERUBAHAN JOBSHEET 3: layout, grid, tabel, form, dan breakpoint disediakan Bootstrap. */
+
+/* Warna brand SIMPUS-Mini tetap dipakai pada teks navbar. */
+.navbar-brand,
+.nav-link {
+    color: #fff !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #d9e8f5 !important;
+}
+
+/* Bootstrap tidak mengetahui warna hover khusus untuk tombol brand. */
+form button[type="submit"]:hover {
+    background-color: #164869 !important;
+}
+
+footer {
+    text-align: center;
+    padding: 1.25rem;
+    color: #7a8794;
+    font-size: 0.9rem;
+}
