@@ -11,15 +11,21 @@
 <body>
     <!-- Menambah navbar Bootstrap untuk menggantikan checkbox hack. -->
     <header class="navbar navbar-expand-lg navbar-dark" style="background-color:#1d5b8a;"><div class="container">
-        <a class="navbar-brand fw-semibold" href="../index.html">SIMPUS-Mini</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <a class="navbar-brand fw-semibold" href="../index.html">SIMPUS-Mini</a>
+        <!-- [DIRUBAH] tombol navbar diberi id agar script toggle dapat berfungsi -->
+        <button id="nav-toggle-btn" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <nav class="collapse navbar-collapse" id="navMenu"><ul class="navbar-nav ms-auto"><li class="nav-item"><a class="nav-link" href="../index.html">Beranda</a></li><li class="nav-item"><a class="nav-link" href="../buku/list.html">Daftar Buku</a></li><li class="nav-item"><a class="nav-link" href="../buku/tambah.html">Tambah Buku</a></li><li class="nav-item"><a class="nav-link active" href="list.html">Daftar Anggota</a></li><li class="nav-item"><a class="nav-link" href="tambah.html">Tambah Anggota</a></li></ul></nav>
     </div></header>
 
     <main class="container my-4"><section class="card shadow-sm mb-4"><div class="card-body">
         <h1 class="card-title h2" style="color:#1d5b8a;">Daftar Anggota</h1>
+        <!-- [TAMBAHAN] Input pencarian untuk fitur filter tabel -->
+        <div class="mb-3"><input type="text" id="search-Input" class="form-control" placeholder="Cari anggota..."></div>
+        <!-- [TAMBAHAN] counter jumlah baris saat filter atau hapus data -->
+        <div class="mb-3 text-muted small" id="table-counter">Menampilkan 2 dari 2 anggota</div>
         <!-- class table Bootstrap menggantikan border HTML. -->
-        <div class="table-responsive"><table class="table table-striped table-hover align-middle"><thead style="background-color:#1d5b8a;"><tr class="text-white"><th rowspan="2">No.Anggota</th><th rowspan="2">Nama</th><th rowspan="2">Alamat</th><th rowspan="2">No.Hp</th><th colspan="2">Jenis Kelamin</th><th rowspan="2">Aksi</th></tr><tr class="text-white"><th>Perempuan</th><th>Laki-laki</th></tr></thead>
-            <tbody><tr><td>001</td><td>Siti Aminah</td><td>Malang</td><td>0812xxx</td><td>V</td><td></td><td><button type="button" class="btn btn-warning btn-sm text-white">Edit</button> <button type="button" class="btn btn-danger btn-sm">Hapus</button></td></tr><tr><td>002</td><td>Budi Santoso</td><td>Batu</td><td>0812xxx</td><td></td><td>V</td><td><button type="button" class="btn btn-warning btn-sm text-white">Edit</button> <button type="button" class="btn btn-danger btn-sm">Hapus</button></td></tr></tbody>
+        <div class="table-responsive"><table class="table table-striped table-hover align-middle" data-label="anggota"><thead style="background-color:#1d5b8a;"><tr class="text-white"><th rowspan="2">No.Anggota</th><th rowspan="2">Nama</th><th rowspan="2">Alamat</th><th rowspan="2">No.Hp</th><th colspan="2">Jenis Kelamin</th><th rowspan="2">Aksi</th></tr><tr class="text-white"><th>Perempuan</th><th>Laki-laki</th></tr></thead>
+            <tbody><tr><td>001</td><td>Siti Aminah</td><td>Malang</td><td>0812xxx</td><td>V</td><td></td><td><button type="button" class="btn btn-warning btn-sm text-white">Edit</button> <button type="button" class="btn btn-danger btn-sm btn-hapus">Hapus</button></td></tr><tr><td>002</td><td>Budi Santoso</td><td>Batu</td><td>0812xxx</td><td></td><td>V</td><td><button type="button" class="btn btn-warning btn-sm text-white">Edit</button> <button type="button" class="btn btn-danger btn-sm btn-hapus">Hapus</button></td></tr></tbody>
         </table></div>
     </div></section></main>
 

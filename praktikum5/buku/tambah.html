@@ -11,17 +11,20 @@
 <body>
     <!-- Menambah navbar Bootstrap untuk menggantikan checkbox hack. -->
     <header class="navbar navbar-expand-lg navbar-dark" style="background-color:#1d5b8a;"><div class="container">
-        <a class="navbar-brand fw-semibold" href="../index.html">SIMPUS-Mini</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <a class="navbar-brand fw-semibold" href="../index.html">SIMPUS-Mini</a>
+        <!-- [DIRUBAH] tombol navbar diberi id agar script toggle dapat berfungsi -->
+        <button id="nav-toggle-btn" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <nav class="collapse navbar-collapse" id="navMenu"><ul class="navbar-nav ms-auto"><li class="nav-item"><a class="nav-link" href="../index.html">Beranda</a></li><li class="nav-item"><a class="nav-link" href="list.html">Daftar Buku</a></li><li class="nav-item"><a class="nav-link active" href="tambah.html">Tambah Buku</a></li><li class="nav-item"><a class="nav-link" href="../anggota/list.html">Daftar Anggota</a></li><li class="nav-item"><a class="nav-link" href="../anggota/tambah.html">Tambah Anggota</a></li></ul></nav>
     </div></header>
 
     <main class="container my-4"><section class="card shadow-sm mb-4"><div class="card-body">
         <h1 class="card-title h2" style="color:#1d5b8a;">Tambah Buku</h1>
-        <!-- p diganti mb-3 dan input memakai form-control. -->
-        <form>
+        <!-- [DIRUBAH] form diberi id agar script validasi bisa menangkap submit. -->
+        <form id="form-tambah">
             <div class="mb-3"><label for="judul" class="form-label fw-semibold">Judul</label><input type="text" class="form-control" id="judul" name="judul" required></div>
             <div class="mb-3"><label for="pengarang" class="form-label fw-semibold">Pengarang</label><input type="text" class="form-control" id="pengarang" name="pengarang" required></div>
             <div class="mb-3"><label for="tahun" class="form-label fw-semibold">Tahun Terbit</label><input type="number" class="form-control" id="tahun" name="tahun" min="1900" max="2026" required></div>
+            <!-- [TAMBAHAN] validasi ISBN hanya angka dan tanda hubung -->
             <div class="mb-3"><label for="isbn" class="form-label fw-semibold">ISBN</label><input type="text" class="form-control" id="isbn" name="isbn" required></div>
             <div class="mb-3"><label for="stok" class="form-label fw-semibold">Stok</label><input type="number" class="form-control" id="stok" name="stok" min="0" required></div>
             <div class="mb-3"><label for="kategori" class="form-label fw-semibold">Kategori</label><select class="form-select" id="kategori" name="kategori" required><option value="Fiksi">Fiksi</option><option value="Non-Fiksi">Non-Fiksi</option><option value="Referensi">Referensi</option></select></div>

@@ -11,14 +11,16 @@
 <body>
     <!-- Menambah navbar Bootstrap untuk menggantikan checkbox hack. -->
     <header class="navbar navbar-expand-lg navbar-dark" style="background-color:#1d5b8a;"><div class="container">
-        <a class="navbar-brand fw-semibold" href="../index.html">SIMPUS-Mini</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <a class="navbar-brand fw-semibold" href="../index.html">SIMPUS-Mini</a>
+        <!-- [DIRUBAH] tombol navbar diberi id agar script toggle dapat berfungsi -->
+        <button id="nav-toggle-btn" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <nav class="collapse navbar-collapse" id="navMenu"><ul class="navbar-nav ms-auto"><li class="nav-item"><a class="nav-link" href="../index.html">Beranda</a></li><li class="nav-item"><a class="nav-link" href="../buku/list.html">Daftar Buku</a></li><li class="nav-item"><a class="nav-link" href="../buku/tambah.html">Tambah Buku</a></li><li class="nav-item"><a class="nav-link" href="list.html">Daftar Anggota</a></li><li class="nav-item"><a class="nav-link active" href="tambah.html">Tambah Anggota</a></li></ul></nav>
     </div></header>
 
     <main class="container my-4"><section class="card shadow-sm mb-4"><div class="card-body">
         <h1 class="card-title h2" style="color:#1d5b8a;">Tambah Anggota</h1>
-        <!-- p diganti mb-3 dan isian memakai Bootstrap. -->
-        <form>
+        <!-- [DIRUBAH] form diberi id agar script validasi dapat menangkap submit. -->
+        <form id="form-tambah">
             <div class="mb-3"><label for="nama" class="form-label fw-semibold">Nama</label><input type="text" class="form-control" id="nama" name="nama_lengkap" required></div>
             <div class="mb-3"><label for="email" class="form-label fw-semibold">Email</label><input type="email" class="form-control" id="email" name="email" required></div>
             <div class="mb-3"><label for="no_anggota" class="form-label fw-semibold">N. Anggota</label><input type="text" class="form-control" id="no_anggota" name="no_anggota" required></div>
