@@ -1,24 +1,17 @@
-/*
-========================================
-DIUBAH: fungsi utama ini dipakai saat halaman selesai dimuat
-========================================
-*/
 function initNavTonggle() {
     const toggleButton = document.getElementById("nav-toggle-btn");
     const navMenu = document.querySelector("header nav");
 
     if (!toggleButton || !navMenu) return;
 
-    toggleButton.addEventListener('click', function () {
-        navMenu.classList.toggle("nav-open");
-    });
-}
+    function syncNavState() {
+        toggleButton.setAttribute("aria-expanded", String(navMenu.classList.contains("show")));
+    }
 
-/*
-========================================
-DIUBAH: menghitung jumlah baris yang tampil di tabel
-========================================
-*/
+    navMenu.addEventListener("shown.bs.collapse", syncNavState);
+    navMenu.addEventListener("hidden.bs.collapse", syncNavState);
+    syncNavState();
+}
 function updateTableCounter(table) {
     const counter = document.getElementById("table-counter");
     if (!table || !counter) return;
@@ -33,33 +26,20 @@ function updateTableCounter(table) {
     const label = table.dataset.label || "data";
     counter.textContent = "Menampilkan " + shown + " dari " + total + " " + label;
 }
-
-/*
-========================================
-DIUBAH: konfirmasi saat tombol hapus diklik
-========================================
-*/
 function initHapusConfirm() {
-    document.querySelectorAll('.btn-hapus').forEach(function (button) {
-        button.addEventListener('click', function () {
-            const row = button.closest("tr");
-            const table = button.closest("table");
-            const nama = row ? row.querySelector("td")?.textContent : "data ini";
-            const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
+  document.addEventListener("click", function (e) {
+    const btn = e.target.closest(".btn-hapus");
+    if (!btn) return;
 
-            if (yakin && row) {
-                row.remove();
-                updateTableCounter(table);
-            }
-        });
-    });
+    const row = btn.closest("tr");
+    const nama = row ? row.querySelector("td")?.textContent : "data ini";
+    const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
+
+    if (yakin && row) {
+      row.remove();
+    }
+  });
 }
-
-/*
-========================================
-DIUBAH: fitur filter pencarian di tabel
-========================================
-*/
 function initTableFilter() {
     const input = document.getElementById("search-Input");
     const table = document.querySelector(".table-responsive table");
@@ -71,8 +51,12 @@ function initTableFilter() {
         const rows = table.querySelectorAll("tbody tr");
 
         rows.forEach(function (row) {
-            const judulCell = row.querySelector("td");
-            const text = judulCell ? judulCell.textContent.toLowerCase() : "";
+            const text = Array.from(row.querySelectorAll("td"))
+                .map(function (cell) {
+                    return cell.textContent.toLowerCase();
+                })
+                .join(" ");
+
             row.style.display = text.includes(keyword) ? "" : "none";
         });
 
@@ -81,12 +65,6 @@ function initTableFilter() {
 
     updateTableCounter(table);
 }
-
-/*
-========================================
-DIUBAH: menampilkan pesan error di input yang kosong/invalid
-========================================
-*/
 function tampilkanError(input, pesan) {
     hapusError(input);
     const span = document.createElement("span");
@@ -101,12 +79,6 @@ function hapusError(input) {
         next.remove();
     }
 }
-
-/*
-========================================
-DIUBAH: validasi form sebelum submit
-========================================
-*/
 function initValidasiForm() {
     const form = document.getElementById("form-tambah");
     if (!form) return;
@@ -173,11 +145,6 @@ function initValidasiForm() {
     });
 }
 
-/*
-========================================
-DIUBAH: semua fungsi diinisialisasi setelah DOM siap
-========================================
-*/
 document.addEventListener('DOMContentLoaded', function () {
     initNavTonggle();
     initHapusConfirm();
