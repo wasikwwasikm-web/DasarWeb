@@ -1,0 +1,49 @@
+body {
+    font-family: var(--bs-body-font-family);
+}
+
+.navbar-brand,
+.nav-link {
+    color: #fff !important;
+}
+.nav-link:hover,
+.nav-link.active {
+    color: #d9e8f5 !important;
+}
+form button[type="submit"]:hover {
+    background-color: #164869 !important;
+}
+
+footer {
+    font-size: 0.9rem;
+}
+
+#form-tambah {
+    max-width: 42rem;
+}
+
+.form-label {
+    margin-top: 0.75rem;
+}
+
+.search-box {
+    max-width: 32rem;
+    margin-bottom: 1rem;
+}
+
+.flash {
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.flash-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.flash-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}

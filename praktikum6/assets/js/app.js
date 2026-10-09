@@ -27,7 +27,11 @@ function updateTableCounter(table) {
     counter.textContent = "Menampilkan " + shown + " dari " + total + " " + label;
 }
 function initHapusConfirm() {
-  document.addEventListener("click", function (e) {
+    document.addEventListener("click", function (e) {
+
+    console.log("Klik terdeteksi di:", e.target);
+    console.log("closest('.btn-hapus'):", e.target.closest(".btn-hapus"));
+
     const btn = e.target.closest(".btn-hapus");
     if (!btn) return;
 
