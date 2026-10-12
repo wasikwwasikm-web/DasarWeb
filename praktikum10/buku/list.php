@@ -40,9 +40,9 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
         <form method="get" action="list.php">
             <span>
                 <label for="search-input">Cari Judul Buku</label><br>
-                <input type="text" id="search-input" name="q" value="<?php echo htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8'); ?>"
-                    data-live-search-url="cari.php"
-                    data-can-manage="<?php echo $sudahLogin ? 'true' : 'false'; ?>"
+                <input type="text" id="search-input" name="q"
+                    value="<?php echo htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8'); ?>"
+                    data-live-search-url="cari.php" data-can-manage="<?php echo $sudahLogin ? 'true' : 'false'; ?>"
                     placeholder="Ketik judul buku...">
             </span>
             <button type="submit">Cari</button>
@@ -56,7 +56,9 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
                     <th>Judul</th>
                     <th>Pengarang</th>
                     <th>Tahun</th>
-                    <!-- [DIUBAH] Kolom tambahan yang wajib tampil pada tabel buku. -->
+                    <th>Penerbit</th>
+                    <th>Bahasa</th>
+                    <!--Kolom yang tampil pada tabel buku. -->
                     <th>ISBN</th>
                     <th>Kategori</th>
                     <th>Stok</th>
@@ -66,7 +68,7 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
             <tbody>
                 <?php if (empty($daftarBuku)): ?>
                     <tr>
-                        <td colspan="7">Tidak ada data buku yang cocok.</td>
+                        <td colspan="9">Tidak ada data buku yang cocok.</td>
                     </tr>
                 <?php else: ?>
                     <?php foreach ($daftarBuku as $buku): ?>
@@ -74,10 +76,13 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
                             <td><?php echo htmlspecialchars($buku['judul'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($buku['pengarang'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo $buku['tahun']; ?></td>
+                            <td><?php echo htmlspecialchars($buku['penerbit'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?php echo htmlspecialchars($buku['bahasa'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($buku['isbn'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($buku['kategori'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo $buku['stok']; ?></td>
                             <td>
+                                <a href="detail.php?id=<?php echo $buku['id']; ?>">Detail</a>
                                 <?php if ($sudahLogin): ?>
                                     <a href="edit.php?id=<?php echo $buku['id']; ?>" class="btn-edit">Edit</a>
                                     <form class="form-hapus" method="post" action="hapus.php">

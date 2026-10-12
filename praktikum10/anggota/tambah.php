@@ -26,7 +26,7 @@ unset($_SESSION['flash']);
             <label for="alamat">Alamat</label><br>
             <input type="text" id="alamat" name="alamat">
         </p>
-        <!-- [DIUBAH] Nomor telepon anggota disimpan ke kolom no_hp PostgreSQL. -->
+        <!-- [New] Nomor telepon anggota disimpan ke kolom no_hp PostgreSQL. -->
         <p>
             <label for="no_hp">No. HP</label><br>
             <input type="text" id="no_hp" name="no_hp">

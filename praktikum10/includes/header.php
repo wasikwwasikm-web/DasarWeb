@@ -29,6 +29,8 @@ $base = '/DasarWeb/praktikum10/';
                     <li><a href="<?= $base ?>buku/tambah.php">Tambah Buku</a></li>
                     <li><a href="<?= $base ?>anggota/list.php">Daftar Anggota</a></li>
                     <li><a href="<?= $base ?>anggota/tambah.php">Tambah Anggota</a></li>
+                    <!-- [New] Link ke pencatatan dan riwayat peminjaman. -->
+                    <li><a href="<?= $base ?>peminjaman/list.php">Peminjaman</a></li>
                 <?php endif; ?>
             </ul>
         </nav>

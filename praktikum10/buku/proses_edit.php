@@ -26,7 +26,7 @@ if ($judul === '') {
 if ($pengarang === '') {
     $errors[] = "Pengarang wajib diisi.";
 }
-// [DIUBAH] Validasi server juga membatasi tahun ke bilangan bulat dan tahun berjalan.
+// [New] Validasi server juga membatasi tahun ke bilangan bulat dan tahun berjalan.
 $tahunValid = filter_var($tahun, FILTER_VALIDATE_INT);
 if ($tahunValid === false || $tahunValid < 1900 || $tahunValid > (int) date('Y')) {
     $errors[] = "Tahun harus berupa bilangan bulat antara 1900-" . date('Y') . ".";

@@ -13,7 +13,7 @@
         </div>
     </div>
 </div>
-<!-- [DIUBAH] Live region agar notifikasi custom diumumkan oleh pembaca layar. -->
+<!-- [New] Live region agar notifikasi custom diumumkan oleh pembaca layar. -->
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script src="<?php echo $base; ?>assets/js/app.js?v=<?php echo filemtime(__DIR__ . '/../assets/js/app.js'); ?>"></script>

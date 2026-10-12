@@ -5,6 +5,10 @@ require __DIR__ . '/includes/koneksi.php';
 
 $totalBuku = $pdo->query("SELECT COUNT(*) FROM buku")->fetchColumn();
 $totalAnggota = $pdo->query("SELECT COUNT(*) FROM anggota")->fetchColumn();
+// [New] Jumlah transaksi yang belum memiliki tanggal pengembalian.
+$sedangDipinjam = $pdo->query(
+    "SELECT COUNT(*) FROM peminjaman WHERE tanggal_kembali IS NULL"
+)->fetchColumn();
 ?>
 <section>
     <h2>Selamat Datang di Sistem Perpustakaan Mini</h2>
@@ -23,7 +27,7 @@ $totalAnggota = $pdo->query("SELECT COUNT(*) FROM anggota")->fetchColumn();
     </article>
     <article>
         <h3>Sedang Dipinjam</h3>
-        <p>0</p>
+        <p><?php echo (int) $sedangDipinjam; ?></p>
     </article>
 </section>
 <?php include __DIR__ . '/includes/footer.php'; ?>

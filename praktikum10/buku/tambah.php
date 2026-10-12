@@ -44,7 +44,7 @@ unset($_SESSION['flash']);
             <textarea id="deskripsi" name="deskripsi" rows="4"></textarea>
         </p>
 
-        <!-- [DIUBAH] ISBN dan kategori tersimpan ke kolom PostgreSQL serta tampil di daftar buku. -->
+        <!-- [New] ISBN dan kategori tersimpan ke kolom PostgreSQL serta tampil di daftar buku. -->
         <p>
             <label for="isbn">ISBN</label><br>
             <input type="text" id="isbn" name="isbn">

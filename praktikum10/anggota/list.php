@@ -67,7 +67,7 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
                 <?php else: ?>
                     <?php foreach ($daftarAnggota as $anggota): ?>
                         <tr>
-                            <!-- [DIUBAH] Escape data anggota sebelum ditampilkan. -->
+                            <!-- [New] Escape data anggota sebelum ditampilkan. -->
                             <td><?php echo htmlspecialchars($anggota['no_anggota'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($anggota['nama'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($anggota['alamat'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>

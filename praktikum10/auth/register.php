@@ -23,7 +23,20 @@ require __DIR__ . '/../includes/header.php';
         <form method="post" action="proses_register.php">
             <p>Nama: <br><input type="text" name="nama" required></p>
             <p>Username: <br><input type="text" name="username" required></p>
-            <p>Password: <br><input type="password" name="password" minlength="6" required></p>
+            <!--[New] Tombol mata untuk menampilkan atau menyembunyikan password. -->
+            <p>
+                <label for="register-password">Password</label>
+                <span class="password-field">
+                    <input type="password" id="register-password" name="password" minlength="6" required>
+                    <button type="button" class="password-toggle" aria-label="Tampilkan password" aria-pressed="false">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path class="eye-slash" d="M3 3 21 21"></path>
+                        </svg>
+                    </button>
+                </span>
+            </p>
             <button type="submit" class="btn">Daftar</button>
             <p class="register-link"><a href="login.php">Sudah punya akun? Login</a></p>
         </form>

@@ -22,7 +22,19 @@ require __DIR__ . '/../includes/header.php';
 
         <form method="post" action="proses_login.php">
             <p>Username: <br><input type="text" name="username" required></p>
-            <p>Password: <br><input type="password" name="password" required></p>
+            <p>
+                <label for="login-password">Password</label>
+                <span class="password-field">
+                    <input type="password" id="login-password" name="password" required>
+                    <button type="button" class="password-toggle" aria-label="Tampilkan password" aria-pressed="false">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path class="eye-slash" d="M3 3 21 21"></path>
+                        </svg>
+                    </button>
+                </span>
+            </p>
             <button type="submit" class="btn">Masuk</button>
             <p class="register-link"><a href="register.php">Belum punya akun? Daftar di sini</a></p>
         </form>

@@ -20,7 +20,7 @@ if ($nama === '') {
 if ($noAnggota === '') {
     $errors[] = "No. Anggota wajib diisi.";
 }
-// [DIUBAH] Validasi nomor telepon dilakukan di server, bukan hanya oleh browser.
+// [New] Validasi nomor telepon dilakukan di server, bukan hanya oleh browser.
 if ($noHp !== '') {
     $phoneDigits = preg_replace('/\D/', '', $noHp);
     if (!preg_match('/^[+\d().\s-]+$/', $noHp) || strlen($phoneDigits) < 7 || strlen($phoneDigits) > 15) {

@@ -17,6 +17,24 @@ function initNavToggle() {
     syncNavState();
 }
 
+function initPasswordToggle() {
+    document.querySelectorAll(".password-toggle").forEach(button => {
+        button.addEventListener("click", function () {
+            const field = button.closest(".password-field");
+            const input = field?.querySelector("input");
+            if (!input) return;
+
+            const shouldShow = input.type === "password";
+            input.type = shouldShow ? "text" : "password";
+            button.setAttribute("aria-pressed", String(shouldShow));
+            button.setAttribute(
+                "aria-label",
+                shouldShow ? "Sembunyikan password" : "Tampilkan password"
+            );
+        });
+    });
+}
+
 // ===== Konfirmasi hapus =====
 // Tombol Hapus kini berada di dalam <form class="form-hapus" method="post">
 // yang benar-benar mengirim request DELETE ke server (buku/hapus.php,
@@ -40,7 +58,7 @@ function initHapusConfirm() {
     modalCancel.addEventListener("click", tutupModal);
     modalConfirm.addEventListener("click", function () {
         if (!pendingForm) return;
-        // [DIUBAH] Simpan form sebelum tutupModal mengosongkan pendingForm.
+        // [New] Simpan form sebelum tutupModal mengosongkan pendingForm.
         const formToSubmit = pendingForm;
         tutupModal();
         HTMLFormElement.prototype.submit.call(formToSubmit);
@@ -102,7 +120,7 @@ function initValidasiForm() {
     const form = document.getElementById("form-tambah");
     if (!form) return;
 
-    // [DIUBAH] Gunakan validasi custom yang berjalan saat mengetik dan submit.
+    // [New] Gunakan validasi custom yang berjalan saat mengetik dan submit.
     form.noValidate = true;
     const fields = Array.from(form.querySelectorAll("input, select, textarea"))
         .filter(input => input.type !== "hidden");
@@ -156,7 +174,7 @@ function initValidasiForm() {
     });
 }
 
-// [DIUBAH] Pesan flash PHP juga ditampilkan sebagai toast custom.
+// [New] Pesan flash PHP juga ditampilkan sebagai toast custom.
 function initFlashToast() {
     const flash = document.querySelector(".flash");
     if (!flash) return;
@@ -219,7 +237,7 @@ function initLiveSearch() {
             } catch (err) {
                 if (err.name !== 'AbortError') {
                     console.error('Fetch error:', err);
-                    // [DIUBAH] Tampilkan kegagalan pencarian melalui notifikasi custom.
+                    // [New] Tampilkan kegagalan pencarian melalui notifikasi custom.
                     showToast('Pencarian gagal. Silakan coba lagi.', 'error');
                 }
             } finally {
@@ -231,10 +249,10 @@ function initLiveSearch() {
     });
 }
 function updateTabelBuku(tbody, data) {
-    // [DIUBAH] Pengunjung tanpa sesi login hanya mendapat hasil baca, bukan aksi CRUD.
+    // [New] Pengunjung tanpa sesi login hanya mendapat hasil baca, bukan aksi CRUD.
     const canManage = document.getElementById("search-input")?.dataset.canManage === "true";
     if (data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7">Tidak ada hasil.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9">Tidak ada hasil.</td></tr>';
         return;
     }
     tbody.innerHTML = data.map(b => `
@@ -242,16 +260,21 @@ function updateTabelBuku(tbody, data) {
             <td>${escapeHtml(b.judul)}</td>
             <td>${escapeHtml(b.pengarang)}</td>
             <td>${b.tahun}</td>
+            <td>${escapeHtml(b.penerbit)}</td>
+            <td>${escapeHtml(b.bahasa)}</td>
             <td>${escapeHtml(b.isbn)}</td>
             <td>${escapeHtml(b.kategori)}</td>
             <td>${b.stok}</td>
-            <td>${canManage ? `
+            <td>
+                <a href="detail.php?id=${encodeURIComponent(b.id)}">Detail</a>
+                ${canManage ? `
                 <a href="edit.php?id=${encodeURIComponent(b.id)}" class="btn-edit">Edit</a>
                 <form class="form-hapus" method="post" action="hapus.php">
                     <input type="hidden" name="id" value="${escapeHtml(b.id)}">
                     <button type="submit" class="btn-hapus">Hapus</button>
                 </form>
-            ` : '<a href="../auth/login.php">Login untuk mengelola</a>'}</td>
+            ` : '<a href="../auth/login.php">Login untuk mengelola</a>'}
+            </td>
         </tr>
     `).join('');
 }
@@ -266,6 +289,7 @@ function escapeHtml(str) {
 
 document.addEventListener("DOMContentLoaded", function () {
     initNavToggle();
+    initPasswordToggle();
     initHapusConfirm();
     initTableFilter();
     initValidasiForm();
