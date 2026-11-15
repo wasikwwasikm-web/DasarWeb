@@ -1,7 +1,7 @@
 <?php
 $config = require __DIR__ . '/config.php';
 
-$sslmode = getenv('DB_SSLMODE') ?: 'require';
+$sslmode = getenv('DB_SSLMODE') ?: 'prefer';
 
 try {
     $dsn = "pgsql:host={$config['db_host']};"
