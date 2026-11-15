@@ -1,9 +1,9 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// PERUBAHAN PRAKTIKUM 10: semua halaman memakai pengaturan sesi yang sama.
+require_once __DIR__ . '/session.php';
+start_app_session();
 $sudahLogin = isset($_SESSION['user_id']);
-$base = '/DasarWeb/praktikum10/';
+$base = app_base_path();
 ?>
 <!DOCTYPE html>
 <html lang="id">

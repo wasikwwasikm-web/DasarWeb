@@ -1,5 +1,7 @@
 <?php
-session_start();
+// PERUBAHAN PRAKTIKUM 10: proses registrasi menggunakan bootstrap sesi bersama.
+require_once __DIR__ . '/../includes/session.php';
+start_app_session();
 require __DIR__ . '/../includes/koneksi.php';
 
 $nama = trim($_POST['nama'] ?? '');

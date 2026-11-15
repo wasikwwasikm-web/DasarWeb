@@ -181,7 +181,7 @@ section h2 {
     display: block;
 }
 
-/* ===== Kartu Statistik (CSS Grid) ===== */
+/* ===== Kartu Statistik ===== */
 main section:nth-of-type(2) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -375,6 +375,16 @@ footer {
 .flash-error {
     background-color: #f8d7da;
     color: #721c24;
+}
+
+.stok-habis {
+    display: inline-block;
+    padding: 0.22rem 0.6rem;
+    border-radius: 999px;
+    background-color: #f8d7da;
+    color: #721c24;
+    font-size: 0.8rem;
+    font-weight: 700;
 }
 
 /* ===== Pesan Error Validasi ===== */

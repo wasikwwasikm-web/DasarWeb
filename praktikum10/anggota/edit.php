@@ -1,5 +1,7 @@
 <?php
 require __DIR__ . '/../includes/auth.php';
+// Soal Praktikum 10 No. 1: hanya admin yang dapat mengubah data anggota.
+require_role('admin');
 $page_title = "Edit Anggota";
 include __DIR__ . '/../includes/header.php';
 require __DIR__ . '/../includes/koneksi.php';

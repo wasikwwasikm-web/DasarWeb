@@ -28,7 +28,8 @@ if (!$anggota) {
         <p class="flash flash-<?php echo $flash['type']; ?>"><?php echo $flash['pesan']; ?></p>
     <?php endif; ?>
 
-    <form id="form-tambah" method="post" action="proses_edit.php">
+    <!-- konfirmasi update juga berlaku untuk anggota. -->
+    <form id="form-tambah" class="form-update" method="post" action="proses_edit.php">
         <input type="hidden" name="id" value="<?php echo $anggota['id']; ?>">
         <p>
             <label for="nama">Nama</label><br>

@@ -1,6 +1,6 @@
 <?php
-if (session_status() === PHP_SESSION_NONE)
-    session_start();
+require_once __DIR__ . '/../includes/session.php';
+start_app_session();
 if (isset($_SESSION['user_id'])) {
     header('Location: ../index.php');
     exit;
@@ -35,6 +35,8 @@ require __DIR__ . '/../includes/header.php';
                     </button>
                 </span>
             </p>
+            <!-- Soal Praktikum 10 No. 2: opsi Ingat Saya untuk mempertahankan sesi login. -->
+            <p><label><input type="checkbox" name="remember_me" value="1"> Ingat Saya</label></p>
             <button type="submit" class="btn">Masuk</button>
             <p class="register-link"><a href="register.php">Belum punya akun? Daftar di sini</a></p>
         </form>

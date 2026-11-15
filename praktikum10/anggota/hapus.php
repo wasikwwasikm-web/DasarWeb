@@ -1,5 +1,7 @@
 <?php
 require __DIR__ . '/../includes/auth.php';
+// Soal Praktikum 10 No. 1: cegah petugas menghapus melalui akses langsung.
+require_role('admin');
 require __DIR__ . '/../includes/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

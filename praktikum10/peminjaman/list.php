@@ -10,6 +10,9 @@ unset($_SESSION['flash']);
 $bukuTersedia = $pdo->query(
     "SELECT id, judul, stok FROM buku WHERE stok > 0 ORDER BY judul"
 )->fetchAll(PDO::FETCH_ASSOC);
+$stokHabis = $pdo->query(
+    "SELECT COUNT(*) FROM buku WHERE stok = 0"
+)->fetchColumn();
 $anggotaList = $pdo->query(
     "SELECT id, nama, no_anggota FROM anggota ORDER BY nama"
 )->fetchAll(PDO::FETCH_ASSOC);
@@ -30,7 +33,13 @@ $peminjamanList = $pdo->query(
         </p>
     <?php endif; ?>
 
-    <!-- [New] Form untuk mencatat transaksi peminjaman buku dan anggota. -->
+    <?php if ((int) $stokHabis > 0): ?>
+        <p class="flash flash-error">
+            Peringatan: ada <?php echo (int) $stokHabis; ?> judul buku yang saat ini stoknya 0 dan tidak bisa dipinjam.
+        </p>
+    <?php endif; ?>
+
+    <!-- Form untuk mencatat transaksi peminjaman buku dan anggota. -->
     <h3>Catat Peminjaman</h3>
     <?php if (empty($anggotaList)): ?>
         <p>Tambahkan anggota terlebih dahulu sebelum mencatat peminjaman.</p>
@@ -83,18 +92,22 @@ $peminjamanList = $pdo->query(
             </thead>
             <tbody>
                 <?php if (empty($peminjamanList)): ?>
-                    <tr><td colspan="5">Belum ada transaksi peminjaman.</td></tr>
+                    <tr>
+                        <td colspan="5">Belum ada transaksi peminjaman.</td>
+                    </tr>
                 <?php else: ?>
                     <?php foreach ($peminjamanList as $peminjaman): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($peminjaman['judul'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?php echo htmlspecialchars($peminjaman['nama'] . ' (' . $peminjaman['no_anggota'] . ')', ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?php echo htmlspecialchars($peminjaman['nama'] . ' (' . $peminjaman['no_anggota'] . ')', ENT_QUOTES, 'UTF-8'); ?>
+                            </td>
                             <td><?php echo htmlspecialchars($peminjaman['tanggal_pinjam'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td>
                                 <?php if ($peminjaman['tanggal_kembali'] === null): ?>
                                     Sedang dipinjam
                                 <?php else: ?>
-                                    Dikembalikan <?php echo htmlspecialchars($peminjaman['tanggal_kembali'], ENT_QUOTES, 'UTF-8'); ?>
+                                    Dikembalikan
+                                    <?php echo htmlspecialchars($peminjaman['tanggal_kembali'], ENT_QUOTES, 'UTF-8'); ?>
                                 <?php endif; ?>
                             </td>
                             <td>

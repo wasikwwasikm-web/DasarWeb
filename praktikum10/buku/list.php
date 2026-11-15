@@ -80,7 +80,13 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
                             <td><?php echo htmlspecialchars($buku['bahasa'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($buku['isbn'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($buku['kategori'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?php echo $buku['stok']; ?></td>
+                            <td>
+                                <?php if ((int) $buku['stok'] === 0): ?>
+                                    <span class="stok-habis">Stok habis</span>
+                                <?php else: ?>
+                                    <?php echo $buku['stok']; ?>
+                                <?php endif; ?>
+                            </td>
                             <td>
                                 <a href="detail.php?id=<?php echo $buku['id']; ?>">Detail</a>
                                 <?php if ($sudahLogin): ?>

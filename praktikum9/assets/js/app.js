@@ -27,6 +27,18 @@ function initHapusConfirm() {
     });
 }
 
+// minta konfirmasi sebelum perubahan dikirim.
+function initUpdateConfirm() {
+    document.addEventListener("submit", function (e) {
+        const form = e.target;
+        if (!form.classList.contains("form-update")) return;
+
+        if (!confirm("Yakin ingin menyimpan perubahan?")) {
+            e.preventDefault();
+        }
+    });
+}
+
 // ===== Filter/pencarian tabel real-time =====
 function initTableFilter() {
     const input = document.getElementById("search-input");
@@ -113,6 +125,7 @@ function initValidasiForm() {
 document.addEventListener("DOMContentLoaded", function () {
     initNavToggle();
     initHapusConfirm();
+    initUpdateConfirm();
     initTableFilter();
     initValidasiForm();
 });

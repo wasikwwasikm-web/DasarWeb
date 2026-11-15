@@ -5,6 +5,7 @@ require __DIR__ . '/../includes/koneksi.php';
 
 $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
+$kategoriBuku = $pdo->query("SELECT id, nama FROM kategori_buku ORDER BY nama")->fetchAll(PDO::FETCH_ASSOC);
 
 $id = $_GET['id'] ?? null;
 if (!$id) {
@@ -28,7 +29,8 @@ if (!$buku) {
         <p class="flash flash-<?php echo $flash['type']; ?>"><?php echo $flash['pesan']; ?></p>
     <?php endif; ?>
 
-    <form id="form-tambah" method="post" action="proses_edit.php">
+    <!-- form update meminta konfirmasi sebelum dikirim. -->
+    <form id="form-tambah" class="form-update" method="post" action="proses_edit.php">
         <input type="hidden" name="id" value="<?php echo $buku['id']; ?>">
         <p>
             <label for="judul">Judul</label><br>
@@ -54,9 +56,13 @@ if (!$buku) {
         <p>
             <label for="kategori">Kategori</label><br>
             <select id="kategori" name="kategori">
-                <?php foreach (['fiksi' => 'Fiksi', 'non-fiksi' => 'Non-Fiksi', 'referensi' => 'Referensi'] as $value => $label): ?>
-                    <option value="<?php echo $value; ?>" <?php echo $buku['kategori'] === $value ? 'selected' : ''; ?>>
-                        <?php echo $label; ?></option>
+                <!-- TAMBAHAN LATIHAN 7.4 #4: kategori dipilih dari tabel kategori_buku. -->
+                <option value="">Pilih kategori</option>
+                <?php foreach ($kategoriBuku as $kategori): ?>
+                    <option value="<?php echo (int) $kategori['id']; ?>"
+                        <?php echo (int) $buku['kategori_id'] === (int) $kategori['id'] ? 'selected' : ''; ?>>
+                        <?php echo htmlspecialchars($kategori['nama'], ENT_QUOTES, 'UTF-8'); ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
         </p>

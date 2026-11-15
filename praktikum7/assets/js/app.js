@@ -1,3 +1,13 @@
+function initNavToggle() {
+    const toggleBtn = document.getElementById("nav-toggle-btn");
+    const nav = document.querySelector("header nav");
+    if (!toggleBtn || !nav) return;
+
+    toggleBtn.addEventListener("click", function () {
+        nav.classList.toggle("nav-open");
+    });
+}
+
 function updateTableCounter(table) {
     const counter = document.getElementById("table-counter");
     if (!table || !counter) return;
@@ -92,14 +102,35 @@ function initValidasiForm() {
                 valid = false;
         }
 
+        const telepon = form.querySelector("[name='telepon']");
+        if (telepon && telepon.value.trim() !== "" && !/^[0-9+() -]+$/.test(telepon.value.trim())) {
+            tampilkanError(telepon, "Telepon hanya boleh berisi angka, spasi, tanda plus, tanda kurung, dan tanda hubung.");
+            valid = false;
+        } else if (telepon) {
+            hapusError(telepon);
+        }
+
         if (!valid) {
             e.preventDefault();
         }
     });
 }
 
+function initResetConfirm() {
+    const form = document.querySelector("[data-confirm-reset]");
+    if (!form) return;
+
+    form.addEventListener("submit", function (e) {
+        if (!confirm("Yakin ingin menghapus semua data sesi?")) {
+            e.preventDefault();
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+    initNavToggle();
     initHapusConfirm();
     initTableFilter();
     initValidasiForm();
+    initResetConfirm();
 });

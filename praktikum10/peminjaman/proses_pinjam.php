@@ -23,7 +23,7 @@ try {
         exit;
     }
 
-    // [New] Perbarui stok secara atomik agar stok tidak bisa dipinjam melebihi jumlah tersedia.
+    // Perbarui stok agar stok tidak bisa dipinjam melebihi jumlah tersedia.
     $kurangiStok = $pdo->prepare(
         "UPDATE buku SET stok = stok - 1 WHERE id = :id AND stok > 0 RETURNING id"
     );

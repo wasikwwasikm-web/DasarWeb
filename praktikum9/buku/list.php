@@ -6,21 +6,36 @@ require __DIR__ . '/../includes/koneksi.php';
 $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
 
-$perPage = 5;
+// tampilkan 10 buku per halaman.
+$perPage = 10;
 $page = max(1, (int) ($_GET['page'] ?? 1));
 $offset = ($page - 1) * $perPage;
 $keyword = trim($_GET['q'] ?? '');
 
 if ($keyword !== '') {
-    $hitung = $pdo->prepare("SELECT COUNT(*) FROM buku WHERE judul ILIKE :kw");
-    $hitung->execute(['kw' => '%' . $keyword . '%']);
+    // pencarian mencocokkan judul ATAU pengarang.
+    $hitung = $pdo->prepare(
+        "SELECT COUNT(*) FROM buku WHERE judul ILIKE :judul_kw OR pengarang ILIKE :pengarang_kw"
+    );
+    $kataKunci = '%' . $keyword . '%';
+    $hitung->execute(['judul_kw' => $kataKunci, 'pengarang_kw' => $kataKunci]);
     $totalRows = $hitung->fetchColumn();
 
-    $stmt = $pdo->prepare("SELECT * FROM buku WHERE judul ILIKE :kw ORDER BY id DESC LIMIT :limit OFFSET :offset");
-    $stmt->bindValue('kw', '%' . $keyword . '%');
+    $stmt = $pdo->prepare(
+        "SELECT buku.*, kategori_buku.nama AS nama_kategori
+         FROM buku LEFT JOIN kategori_buku ON buku.kategori_id = kategori_buku.id
+         WHERE judul ILIKE :judul_kw OR pengarang ILIKE :pengarang_kw
+         ORDER BY buku.id DESC LIMIT :limit OFFSET :offset"
+    );
+    $stmt->bindValue('judul_kw', $kataKunci);
+    $stmt->bindValue('pengarang_kw', $kataKunci);
 } else {
     $totalRows = $pdo->query("SELECT COUNT(*) FROM buku")->fetchColumn();
-    $stmt = $pdo->prepare("SELECT * FROM buku ORDER BY id DESC LIMIT :limit OFFSET :offset");
+    $stmt = $pdo->prepare(
+        "SELECT buku.*, kategori_buku.nama AS nama_kategori
+         FROM buku LEFT JOIN kategori_buku ON buku.kategori_id = kategori_buku.id
+         ORDER BY buku.id DESC LIMIT :limit OFFSET :offset"
+    );
 }
 $stmt->bindValue('limit', $perPage, PDO::PARAM_INT);
 $stmt->bindValue('offset', $offset, PDO::PARAM_INT);
@@ -39,9 +54,10 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
     <div class="search-box">
         <form method="get" action="list.php">
             <span>
-                <label for="search-input">Cari Judul Buku</label><br>
+                <!--  kolom pencarian mencakup judul dan pengarang. -->
+                <label for="search-input">Cari Judul atau Pengarang Buku</label><br>
                 <input type="text" id="search-input" name="q" value="<?php echo $keyword; ?>"
-                    placeholder="Ketik judul buku...">
+                    placeholder="Ketik judul atau pengarang buku...">
             </span>
             <button type="submit">Cari</button>
         </form>
@@ -54,6 +70,8 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
                     <th>Judul</th>
                     <th>Pengarang</th>
                     <th>Tahun</th>
+                    <!-- TAMBAHAN LATIHAN 7.4 #4: tampilkan relasi kategori buku. -->
+                    <th>Kategori</th>
                     <th>Stok</th>
                     <th>Aksi</th>
                 </tr>
@@ -61,7 +79,7 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
             <tbody>
                 <?php if (empty($daftarBuku)): ?>
                     <tr>
-                        <td colspan="5">Tidak ada data buku yang cocok.</td>
+                        <td colspan="6">Tidak ada data buku yang cocok.</td>
                     </tr>
                 <?php else: ?>
                     <?php foreach ($daftarBuku as $buku): ?>
@@ -69,6 +87,7 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
                             <td><?php echo $buku['judul']; ?></td>
                             <td><?php echo $buku['pengarang']; ?></td>
                             <td><?php echo $buku['tahun']; ?></td>
+                            <td><?php echo htmlspecialchars($buku['nama_kategori'] ?? '—', ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo $buku['stok']; ?></td>
                             <td>
                                 <a href="edit.php?id=<?php echo $buku['id']; ?>" class="btn-edit">Edit</a>

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../includes/session.php';
 
 if (!isset($_POST['index']) || !is_numeric($_POST['index'])) {
     $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Data yang akan dihapus tidak valid.'];

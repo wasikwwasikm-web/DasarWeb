@@ -7,7 +7,7 @@ $pengarang = trim($_POST['pengarang'] ?? '');
 $tahun = $_POST['tahun'] ?? '';
 $isbn = trim($_POST['isbn'] ?? '');
 $stok = $_POST['stok'] ?? '';
-$kategori = trim($_POST['kategori'] ?? '');
+$kategoriId = $_POST['kategori'] ?? '';
 
 // Validasi server-side — wajib ada meski sudah divalidasi JS di Jobsheet 5,
 // karena validasi client bisa dilewati (nonaktifkan JS / kirim request manual).
@@ -24,6 +24,9 @@ if (!is_numeric($tahun) || $tahun < 1900 || $tahun > 2026) {
 if (!is_numeric($stok) || $stok < 0) {
     $errors[] = "Stok tidak boleh negatif.";
 }
+if ($kategoriId !== '' && filter_var($kategoriId, FILTER_VALIDATE_INT) === false) {
+    $errors[] = "Kategori tidak valid.";
+}
 
 if (!empty($errors)) {
     $_SESSION['flash'] = ['type' => 'error', 'pesan' => implode(' ', $errors)];
@@ -32,8 +35,8 @@ if (!empty($errors)) {
 }
 
 $stmt = $pdo->prepare(
-    "INSERT INTO buku (judul, pengarang, tahun, isbn, stok, kategori)
-     VALUES (:judul, :pengarang, :tahun, :isbn, :stok, :kategori)
+    "INSERT INTO buku (judul, pengarang, tahun, isbn, stok, kategori_id)
+     VALUES (:judul, :pengarang, :tahun, :isbn, :stok, :kategori_id)
      RETURNING id"
 );
 $stmt->execute([
@@ -42,7 +45,7 @@ $stmt->execute([
     'tahun' => (int) $tahun,
     'isbn' => $isbn,
     'stok' => (int) $stok,
-    'kategori' => $kategori,
+    'kategori_id' => $kategoriId === '' ? null : (int) $kategoriId,
 ]);
 
 $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Buku berhasil ditambahkan.'];

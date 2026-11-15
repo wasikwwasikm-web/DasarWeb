@@ -1,9 +1,11 @@
 <?php
 $page_title = "Tambah Buku";
 include __DIR__ . '/../includes/header.php';
+require __DIR__ . '/../includes/koneksi.php';
 
 $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
+$kategoriBuku = $pdo->query("SELECT id, nama FROM kategori_buku ORDER BY nama")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <section>
     <h2>Tambah Buku</h2>
@@ -36,9 +38,13 @@ unset($_SESSION['flash']);
         <p>
             <label for="kategori">Kategori</label><br>
             <select id="kategori" name="kategori">
-                <option value="fiksi">Fiksi</option>
-                <option value="non-fiksi">Non-Fiksi</option>
-                <option value="referensi">Referensi</option>
+                <!-- TAMBAHAN LATIHAN 7.4 #4: pilihan berasal dari daftar kategori. -->
+                <option value="">Pilih kategori</option>
+                <?php foreach ($kategoriBuku as $kategori): ?>
+                    <option value="<?php echo (int) $kategori['id']; ?>">
+                        <?php echo htmlspecialchars($kategori['nama'], ENT_QUOTES, 'UTF-8'); ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
         </p>
         <p>

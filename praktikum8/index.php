@@ -1,23 +1,31 @@
 <?php
-require_once __DIR__ . '/includes/bootstrap.php';
 $page_title = "Beranda";
+require __DIR__ . '/includes/koneksi.php';
+
+$totalBuku = $pdo->query("SELECT COUNT(*) FROM buku")->fetchColumn();
+$totalAnggota = $pdo->query("SELECT COUNT(*) FROM anggota")->fetchColumn();
 include __DIR__ . '/includes/header.php';
 ?>
 
-<section class="card shadow-sm">
-    <div class="card-body">
-        <h2 class="card-title">Selamat Datang di Sistem Perpustakaan Mini</h2>
-        <p class="card-text">Gunakan menu di atas untuk mengelola data buku dan anggota.</p>
+<section>
+    <h2>Selamat Datang di Sistem Perpustakaan Mini</h2>
+    <p>Aplikasi sederhana untuk mengelola data buku dan anggota perpustakaan.</p>
+</section>
 
-        <?php
-        $totalBuku = count($_SESSION['buku']['items'] ?? []);
-        $totalAnggota = count($_SESSION['anggota'] ?? []);
-        ?>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Total Buku: <?php echo $totalBuku; ?></li>
-            <li class="list-group-item">Total Anggota: <?php echo $totalAnggota; ?></li>
-        </ul>
-    </div>
+<section>
+    <h2>Ringkasan</h2>
+    <article>
+        <h3>Total Buku</h3>
+        <p><?php echo $totalBuku; ?></p>
+    </article>
+    <article>
+        <h3>Total Anggota</h3>
+        <p><?php echo $totalAnggota; ?></p>
+    </article>
+    <article>
+        <h3>Sedang Dipinjam</h3>
+        <p>0</p>
+    </article>
 </section>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>

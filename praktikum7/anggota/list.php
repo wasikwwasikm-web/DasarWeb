@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../includes/bootstrap.php';
 $page_title = "Daftar Anggota";
 include __DIR__ . '/../includes/header.php';
 
@@ -9,9 +8,8 @@ unset($_SESSION['flash']);
 $daftarAnggota = $_SESSION['anggota'];
 ?>
 
-<section class="card shadow-sm">
-    <div class="card-body">
-    <h2 class="card-title">Daftar Anggota</h2>
+<section>
+    <h2>Daftar Anggota</h2>
 
     <?php if ($flash): ?>
         <p class="flash flash-<?php echo $flash['type']; ?>">
@@ -21,11 +19,11 @@ $daftarAnggota = $_SESSION['anggota'];
 
     <div class="search-box">
         <label for="search-input">Cari Nama Anggota</label>
-        <input class="form-control" type="text" id="search-input" placeholder="Ketik nama anggota...">
+        <input type="text" id="search-input" placeholder="Ketik nama anggota...">
     </div>
 
     <div class="table-responsive">
-        <table class="table table-striped align-middle">
+        <table>
             <thead>
                 <tr>
                     <th>Nama</th>
@@ -59,7 +57,7 @@ $daftarAnggota = $_SESSION['anggota'];
                                 <!-- DIPERBAIKI: hapus dikirim ke server agar perubahan tersimpan di session. -->
                                 <form class="form-hapus" method="post" action="proses_hapus.php" data-nama="<?php echo htmlspecialchars($anggota['nama'], ENT_QUOTES, 'UTF-8'); ?>">
                                     <input type="hidden" name="index" value="<?php echo $index; ?>">
-                                    <button class="btn btn-danger btn-sm" type="submit">Hapus</button>
+                                    <button class="btn-hapus" type="submit">Hapus</button>
                                 </form>
                             </td>
                         </tr>
@@ -67,7 +65,6 @@ $daftarAnggota = $_SESSION['anggota'];
                 <?php endif; ?>
             </tbody>
         </table>
-    </div>
     </div>
 </section>
 

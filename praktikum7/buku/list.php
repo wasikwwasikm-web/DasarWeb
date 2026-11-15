@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../includes/bootstrap.php';
 $page_title = "Daftar Buku";
 include __DIR__ . '/../includes/header.php';
 
@@ -9,9 +8,8 @@ unset($_SESSION['flash']);
 $daftarBuku = $_SESSION['buku']['items'];
 ?>
 
-<section class="card shadow-sm">
-    <div class="card-body">
-    <h2 class="card-title">Daftar Buku</h2>
+<section>
+    <h2>Daftar Buku</h2>
 
     <?php if ($flash): ?>
         <p class="flash flash-<?php echo $flash['type']; ?>">
@@ -21,11 +19,11 @@ $daftarBuku = $_SESSION['buku']['items'];
 
     <div class="search-box">
         <label for="search-input">Cari Judul Buku</label>
-        <input class="form-control" type="text" id="search-input" placeholder="Ketik judul buku...">
+        <input type="text" id="search-input" placeholder="Ketik judul buku...">
     </div>
 
     <div class="table-responsive">
-        <table class="table table-striped align-middle">
+        <table>
             <thead>
                 <tr>
                     <th>Judul</th>
@@ -51,7 +49,7 @@ $daftarBuku = $_SESSION['buku']['items'];
                                 <!-- DIPERBAIKI: hapus dikirim ke server agar perubahan tersimpan di session. -->
                                 <form class="form-hapus" method="post" action="proses_hapus.php" data-nama="<?php echo htmlspecialchars($buku['judul'], ENT_QUOTES, 'UTF-8'); ?>">
                                     <input type="hidden" name="index" value="<?php echo $index; ?>">
-                                    <button class="btn btn-danger btn-sm" type="submit">Hapus</button>
+                                    <button class="btn-hapus" type="submit">Hapus</button>
                                 </form>
                             </td>
                         </tr>
@@ -59,7 +57,6 @@ $daftarBuku = $_SESSION['buku']['items'];
                 <?php endif; ?>
             </tbody>
         </table>
-    </div>
     </div>
 </section>
 

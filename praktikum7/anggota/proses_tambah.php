@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../includes/session.php';
 
 $nama = trim($_POST['nama'] ?? '');
 $email = trim($_POST['email'] ?? '');
@@ -11,6 +11,9 @@ if ($nama === '')
     $errors[] = "Nama wajib diisi.";
 if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errors[] = "Email tidak valid.";
+}
+if ($telepon !== '' && !preg_match('/^[0-9+() -]+$/', $telepon)) {
+    $errors[] = "Telepon hanya boleh berisi angka, spasi, tanda plus, tanda kurung, dan tanda hubung.";
 }
 
 if (!empty($errors)) {

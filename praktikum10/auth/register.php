@@ -1,6 +1,7 @@
 <?php
-if (session_status() === PHP_SESSION_NONE)
-    session_start();
+// PERUBAHAN PRAKTIKUM 10: halaman registrasi menggunakan bootstrap sesi bersama.
+require_once __DIR__ . '/../includes/session.php';
+start_app_session();
 if (isset($_SESSION['user_id'])) {
     header('Location: ../index.php');
     exit;

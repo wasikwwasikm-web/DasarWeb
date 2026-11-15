@@ -29,6 +29,8 @@ $base = $__rel === '' ? '' : str_repeat('../', substr_count($__rel, '/') + 1);
                 <li><a href="<?php echo $base; ?>index.php">Beranda</a></li>
                 <li><a href="<?php echo $base; ?>buku/list.php">Daftar Buku</a></li>
                 <li><a href="<?php echo $base; ?>buku/tambah.php">Tambah Buku</a></li>
+                <!-- TAMBAHAN LATIHAN 7.4 #4: menu entitas Kategori Buku. -->
+                <li><a href="<?php echo $base; ?>kategori/list.php">Kategori Buku</a></li>
                 <li><a href="<?php echo $base; ?>anggota/list.php">Daftar Anggota</a></li>
                 <li><a href="<?php echo $base; ?>anggota/tambah.php">Tambah Anggota</a></li>
             </ul>

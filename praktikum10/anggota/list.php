@@ -6,6 +6,7 @@ require __DIR__ . '/../includes/koneksi.php';
 
 $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
+$isAdmin = ($_SESSION['role'] ?? null) === 'admin';
 
 $perPage = 5;
 $page = max(1, (int) ($_GET['page'] ?? 1));
@@ -73,11 +74,16 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
                             <td><?php echo htmlspecialchars($anggota['alamat'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($anggota['no_hp'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
                             <td>
-                                <a href="edit.php?id=<?php echo $anggota['id']; ?>" class="btn-edit">Edit</a>
-                                <form class="form-hapus" method="post" action="hapus.php">
-                                    <input type="hidden" name="id" value="<?php echo $anggota['id']; ?>">
-                                    <button type="submit" class="btn-hapus">Hapus</button>
-                                </form>
+                                <?php if ($isAdmin): ?>
+                                    <!-- PERUBAHAN PRAKTIKUM 10: aksi ubah/hapus hanya ditampilkan untuk admin. -->
+                                    <a href="edit.php?id=<?php echo $anggota['id']; ?>" class="btn-edit">Edit</a>
+                                    <form class="form-hapus" method="post" action="hapus.php">
+                                        <input type="hidden" name="id" value="<?php echo $anggota['id']; ?>">
+                                        <button type="submit" class="btn-hapus">Hapus</button>
+                                    </form>
+                                <?php else: ?>
+                                    <span>Hanya lihat</span>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

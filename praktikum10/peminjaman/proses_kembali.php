@@ -12,7 +12,7 @@ if ($id === false || $id < 1) {
 try {
     $pdo->beginTransaction();
 
-    // [New] Kunci transaksi agar pengembalian bersamaan tidak menambah stok dua kali.
+    // agar pengembalian bersamaan tidak menambah stok dua kali.
     $stmt = $pdo->prepare(
         "SELECT buku_id FROM peminjaman WHERE id = :id AND tanggal_kembali IS NULL FOR UPDATE"
     );
